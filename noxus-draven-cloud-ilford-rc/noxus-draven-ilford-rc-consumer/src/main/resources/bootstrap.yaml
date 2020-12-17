@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: cloud-consumer
+  #  cloud:
+  #    bootstarp:
+  #      enabled: false
+  #  config:
+  #    use-legacy-processing: true
+
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        enabled: true
+server:
+  port: 1003
+
+
+
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  #    statusPageUrlPath: ${server.servletPath}/info
+  #    healthCheckUrlPath: ${server.servletPath}/health
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:1000/eureka/
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      # 是否向 Actuator 的 HealthIndicator 注册
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      slidingWindowType: TIME_BASED
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 2s
+      failureRateThreshold: 30
+      recordExceptions:
+        - java.lang.Exception
+
+
+resilience4j.thread-pool-bulkhead:
+  configs:
+    default:
+      maxThreadPoolSize: 50
+      coreThreadPoolSize: 10
+      queueCapacity: 1
+
+resilience4j.retry:
+  configs:
+    default:
+      maxRetryAttempts: 2
+      waitDuration: 1
+      retryExceptions:
+        - java.lang.Exception
+    cloud-provider:
+      maxRetryAttempts: 4

@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: gateway-server
+  #  cloud:
+  #    bootstarp:
+  #      enabled: false
+  #  config:
+  #    use-legacy-processing: true
+
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        enabled: true
+server:
+  port: 1001
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+
+eureka:
+  instance:
+    hostname: 127.0.0.1
+  #    statusPageUrlPath: ${server.servletPath}/info
+  #    healthCheckUrlPath: ${server.servletPath}/health
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:1000/eureka/

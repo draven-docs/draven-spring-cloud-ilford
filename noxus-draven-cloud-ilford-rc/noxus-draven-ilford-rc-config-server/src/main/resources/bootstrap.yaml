@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: [ file:/Users/draven/Documents/documents/java/documents/draven-spring-cloud-ilford/noxus-draven-cloud-ilford-rc/noxus-draven-ilford-rc-config-server/config-server/ ]
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:1000/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+
+security:
+  basic:
+    enabled: false
+
+
+server:
+  port: 30000
+
+
+# name: as
