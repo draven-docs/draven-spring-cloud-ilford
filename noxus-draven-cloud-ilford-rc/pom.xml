@@ -16,6 +16,7 @@
         <module>noxus-draven-ilford-rc-provider</module>
         <module>noxus-draven-ilford-rc-config-server</module>
         <module>noxus-draven-ilford-rc-resilience4j-cloud2</module>
+        <module>noxus-draven-ilford-rc-kubernetes</module>
     </modules>
 
 
